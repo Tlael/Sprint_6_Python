@@ -1,61 +1,57 @@
-import pytest
+import allure
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+from pages.base_page import BasePage
 from pages.locators_order_page import *
 from pages.urls import *
+from data.data import MESSAGE_ORDER
 
 
-class OrderPage:
-    def __init__(self, driver):
-        self.driver = driver
+class OrderPage(BasePage):
 
+    @allure.step('Кликаем по кнопке Заказать в шапке')
     def click_button_in_header(self):
-        self.driver.find_element(*BUTTON_ORDER_IN_HEADER).click()
+        self.find_element(BUTTON_ORDER_IN_HEADER).click()
 
+    @allure.step('Кликаем по кнопке Заказать на странице')
     def click_button_in_page(self):
-        self.driver.execute_script("arguments[0].scrollIntoView(true);",
-                                   self.driver.find_element(*BUTTON_ORDER_IN_PAGE))
-        self.driver.find_element(*BUTTON_ORDER_IN_PAGE).click()
+        WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(BUTTON_ORDER_IN_PAGE))
+        self.scroll_into_view_and_click(BUTTON_ORDER_IN_PAGE)
 
-    @pytest.mark.parametrize(
-        'name, surname, address, subway, phone, time, comment', [
-            ['Иван', 'Иванов', 'Ленина 5', 'Улица 1905 года', '89051112233', '18.01.2025',
-             'Тестовый комментарий'],
-            ['Петр', 'Петров', 'Тимирязева 10', 'Беговая', '89163334455', '19.02.2025',
-             'Ещё один тестовый комментарий']
-        ]
-    )
+    @allure.step('Заполняем поля заявки')
     def get_order(self, name, surname, address, subway, phone, time, comment):
-        self.driver.find_element(*FIELD_NAME).send_keys(name)
-        self.driver.find_element(*FIELD_SURNAME).send_keys(surname)
-        self.driver.find_element(*FIELD_ADDRESS).send_keys(address)
-        self.driver.find_element(*FIELD_SUBWAY).send_keys(subway)
-        self.driver.find_element(*LIST_SUBWAY).click()
-        self.driver.find_element(*FIELD_PHONE).send_keys(phone)
-        self.driver.find_element(*BUTTON_NEXT).click()
+        self.find_element(FIELD_NAME).send_keys(name)
+        self.find_element(FIELD_SURNAME).send_keys(surname)
+        self.find_element(FIELD_ADDRESS).send_keys(address)
+        self.find_element(FIELD_SUBWAY).send_keys(subway)
+        self.find_element(LIST_SUBWAY).click()
+        self.find_element(FIELD_PHONE).send_keys(phone)
+        self.find_element(BUTTON_NEXT).click()
 
-        self.driver.find_element(*FIELD_TIME).send_keys(time)
-        self.driver.find_element(*CALENDAR).click()
-        self.driver.find_element(*DROPDOWN_RENTS).click()
-        self.driver.find_element(*TIME_RENTS).click()
-        self.driver.find_element(*CHECKBOX_COLOR_BLACK).click()
-        self.driver.find_element(*FIELD_COMMENT).send_keys(comment)
-        self.driver.find_element(*BUTTON_ORDER).click()
+        self.find_element(FIELD_TIME).send_keys(time)
+        self.find_element(CALENDAR).click()
+        self.find_element(DROPDOWN_RENTS).click()
+        self.find_element(TIME_RENTS).click()
+        self.find_element(CHECKBOX_COLOR_BLACK).click()
+        self.find_element(FIELD_COMMENT).send_keys(comment)
+        self.find_element(BUTTON_ORDER).click()
 
-        self.driver.find_element(*BUTTON_YES).click()
+        self.find_element(BUTTON_YES).click()
 
         order = WebDriverWait(self.driver, 10).until(
             expected_conditions.visibility_of_element_located(VIEW_STATUS))
         description = order.text
         assert description == MESSAGE_ORDER
 
+    @allure.step('Кликаем по логотипу самокат')
     def click_logo_scooter(self):
-        self.driver.find_element(*LOGO_SCOOTER).click()
+        self.find_element(LOGO_SCOOTER).click()
         assert self.driver.current_url == SCOOTER_URL
 
+    @allure.step('Кликаем по логотипу Яндекс')
     def click_logo_yandex(self):
-        self.driver.find_element(*LOGO_YANDEX).click()
+        self.find_element(LOGO_YANDEX).click()
 
         # Переключение на новое окно
         self.driver.switch_to.window(self.driver.window_handles[-1])

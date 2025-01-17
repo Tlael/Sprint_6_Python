@@ -1,81 +1,40 @@
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
+import allure
+
+from pages.base_page import BasePage
 from pages.locators_main_page import *
 
 
-class MainPage:
+class MainPage(BasePage):
+    ACCORDIONS = {
+        1: ACCORDION_1,
+        2: ACCORDION_2,
+        3: ACCORDION_3,
+        4: ACCORDION_4,
+        5: ACCORDION_5,
+        6: ACCORDION_6,
+        7: ACCORDION_7,
+        8: ACCORDION_8
+    }
 
-    def __init__(self, driver):
-        self.driver = driver
+    ANSWERS = {
+        1: ANSWER_1,
+        2: ANSWER_2,
+        3: ANSWER_3,
+        4: ANSWER_4,
+        5: ANSWER_5,
+        6: ANSWER_6,
+        7: ANSWER_7,
+        8: ANSWER_8
+    }
 
-    def click_accordion_1(self):
-        self.driver.execute_script("arguments[0].scrollIntoView(true);",
-                                   self.driver.find_element(*ACCORDION_1))
-        self.driver.find_element(*ACCORDION_1).click()
-        actual = WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(ANSWER_1))
-        description = actual.text
-        assert description == DESCRIPTION_1
+    @allure.step('Открываем аккордион {accord_number}')
+    def open_accordion(self, accord_number):
+        """Открывает указанный аккорд."""
+        accordion_locator = self.ACCORDIONS[accord_number]
+        self.scroll_into_view_and_click(accordion_locator)
 
-    def click_accordion_2(self):
-        self.driver.execute_script("arguments[0].scrollIntoView(true);",
-                                   self.driver.find_element(*ACCORDION_2))
-        self.driver.find_element(*ACCORDION_2).click()
-        actual = WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(ANSWER_2))
-        description = actual.text
-        assert description == DESCRIPTION_2
-
-    def click_accordion_3(self):
-        self.driver.execute_script("arguments[0].scrollIntoView(true);",
-                                   self.driver.find_element(*ACCORDION_3))
-        self.driver.find_element(*ACCORDION_3).click()
-        actual = WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(ANSWER_3))
-        description = actual.text
-        assert description == DESCRIPTION_3
-
-    def click_accordion_4(self):
-        self.driver.execute_script("arguments[0].scrollIntoView(true);",
-                                   self.driver.find_element(*ACCORDION_4))
-        self.driver.find_element(*ACCORDION_4).click()
-        actual = WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(ANSWER_4))
-        description = actual.text
-        assert description == DESCRIPTION_4
-
-    def click_accordion_5(self):
-        self.driver.execute_script("arguments[0].scrollIntoView(true);",
-                                   self.driver.find_element(*ACCORDION_5))
-        self.driver.find_element(*ACCORDION_5).click()
-        actual = WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(ANSWER_5))
-        description = actual.text
-        assert description == DESCRIPTION_5
-
-    def click_accordion_6(self):
-        self.driver.execute_script("arguments[0].scrollIntoView(true);",
-                                   self.driver.find_element(*ACCORDION_6))
-        self.driver.find_element(*ACCORDION_6).click()
-        actual = WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(ANSWER_6))
-        description = actual.text
-        assert description == DESCRIPTION_6
-
-    def click_accordion_7(self):
-        self.driver.execute_script("arguments[0].scrollIntoView(true);",
-                                   self.driver.find_element(*ACCORDION_7))
-        self.driver.find_element(*ACCORDION_7).click()
-        actual = WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(ANSWER_7))
-        description = actual.text
-        assert description == DESCRIPTION_7
-
-    def click_accordion_8(self):
-        self.driver.execute_script("arguments[0].scrollIntoView(true);",
-                                   self.driver.find_element(*ACCORDION_8))
-        self.driver.find_element(*ACCORDION_8).click()
-        actual = WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(ANSWER_8))
-        description = actual.text
-        assert description == DESCRIPTION_8
+    @allure.step('Получаем ответ аккордеона {accord_number}')
+    def get_answer_text(self, accord_number):
+        """Возвращает текст ответа указанного аккорда."""
+        answer_locator = self.ANSWERS[accord_number]
+        return self.get_visible_element_text(answer_locator)
