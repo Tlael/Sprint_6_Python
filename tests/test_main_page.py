@@ -1,9 +1,9 @@
 import allure
 import pytest
 from selenium import webdriver
-from data.data import DESCRIPTIONS
+from resources.descriptions import DESCRIPTIONS
 from pages.main_page import MainPage
-from pages.urls import SCOOTER_URL
+from resources.urls import SCOOTER_URL
 
 
 class TestMainPage:

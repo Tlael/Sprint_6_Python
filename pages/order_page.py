@@ -1,11 +1,9 @@
 import allure
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.base_page import BasePage
-from pages.locators_order_page import *
-from pages.urls import *
-from data.data import MESSAGE_ORDER
+from resources.locators_order_page import *
+from resources.urls import *
+from resources.descriptions import MESSAGE_ORDER
 
 
 class OrderPage(BasePage):
@@ -16,7 +14,7 @@ class OrderPage(BasePage):
 
     @allure.step('Кликаем по кнопке Заказать на странице')
     def click_button_in_page(self):
-        WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(BUTTON_ORDER_IN_PAGE))
+        self.wait_for_clickability(BUTTON_ORDER_IN_PAGE)
         self.scroll_into_view_and_click(BUTTON_ORDER_IN_PAGE)
 
     @allure.step('Заполняем поля заявки')
@@ -39,25 +37,25 @@ class OrderPage(BasePage):
 
         self.find_element(BUTTON_YES).click()
 
-        order = WebDriverWait(self.driver, 10).until(
-            expected_conditions.visibility_of_element_located(VIEW_STATUS))
-        description = order.text
+        self.wait_for_visibility(VIEW_STATUS)
+        description = self.find_element(VIEW_STATUS).text
         assert description == MESSAGE_ORDER
 
     @allure.step('Кликаем по логотипу самокат')
     def click_logo_scooter(self):
         self.find_element(LOGO_SCOOTER).click()
-        assert self.driver.current_url == SCOOTER_URL
+        self.wait_for_url_to_be(SCOOTER_URL)
+        assert str(SCOOTER_URL) == self.get_current_url()
 
     @allure.step('Кликаем по логотипу Яндекс')
     def click_logo_yandex(self):
         self.find_element(LOGO_YANDEX).click()
 
         # Переключение на новое окно
-        self.driver.switch_to.window(self.driver.window_handles[-1])
+        self.switch_to_last_window()
 
         # Ждем, пока загрузится новая страница
-        WebDriverWait(self.driver, 10).until(expected_conditions.url_to_be(YANDEX_URL))
+        self.wait_for_url_to_be(YANDEX_URL)
 
         # Проверка URL
-        assert self.driver.current_url == YANDEX_URL
+        assert str(YANDEX_URL) == self.get_current_url()

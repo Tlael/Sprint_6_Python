@@ -8,7 +8,7 @@ BUTTON_ORDER_IN_PAGE = (By.CSS_SELECTOR, '.Home_ThirdPart__LSTEE .Home_FinishBut
 FIELD_NAME = (By.CSS_SELECTOR, "input.Input_Input__1iN_Z.Input_Responsible__1jDKN[placeholder=\"* Имя\"]")
 FIELD_SURNAME = (By.CSS_SELECTOR, "input.Input_Input__1iN_Z.Input_Responsible__1jDKN[placeholder=\"* Фамилия\"]")
 FIELD_ADDRESS = (
-By.CSS_SELECTOR, "input.Input_Input__1iN_Z.Input_Responsible__1jDKN[placeholder=\"* Адрес: куда привезти заказ\"]")
+    By.CSS_SELECTOR, "input.Input_Input__1iN_Z.Input_Responsible__1jDKN[placeholder=\"* Адрес: куда привезти заказ\"]")
 FIELD_SUBWAY = (By.CSS_SELECTOR, "input.select-search__input[placeholder=\"* Станция метро\"]")
 LIST_SUBWAY = (By.CLASS_NAME, 'select-search__select')
 FIELD_PHONE = (By.CSS_SELECTOR,
@@ -17,16 +17,16 @@ FIELD_PHONE = (By.CSS_SELECTOR,
 BUTTON_NEXT = (By.XPATH, "//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Далее']")
 
 FIELD_TIME = (
-By.CSS_SELECTOR, "input.Input_Input__1iN_Z.Input_Responsible__1jDKN[placeholder=\"* Когда привезти самокат\"]")
+    By.CSS_SELECTOR, "input.Input_Input__1iN_Z.Input_Responsible__1jDKN[placeholder=\"* Когда привезти самокат\"]")
 CALENDAR = (By.CLASS_NAME, 'react-datepicker__month-container')
 DROPDOWN_RENTS = (By.CSS_SELECTOR, "div.Dropdown-control[aria-haspopup=\"listbox\"] .Dropdown-placeholder")
 TIME_RENTS = (
-By.XPATH, "//div[@class='Dropdown-option' and @role='option' and @aria-selected='false' and text()='трое суток']")
+    By.XPATH, "//div[@class='Dropdown-option' and @role='option' and @aria-selected='false' and text()='трое суток']")
 
 CHECKBOX_COLOR_BLACK = (By.XPATH, '//*[@id="black"]')
 CHECKBOX_COLOR_GRAY = (By.XPATH, '//*[@id="grey"]')
 FIELD_COMMENT = (
-By.CSS_SELECTOR, "input.Input_Input__1iN_Z.Input_Responsible__1jDKN[placeholder=\"Комментарий для курьера\"]")
+    By.CSS_SELECTOR, "input.Input_Input__1iN_Z.Input_Responsible__1jDKN[placeholder=\"Комментарий для курьера\"]")
 BUTTON_ORDER = (By.XPATH,
                 "//button[contains(@class, 'Button_Button__ra12g') and contains(@class, 'Button_Middle__1CSJM') and contains(text(), 'Заказать')]")
 

@@ -21,3 +21,21 @@ class BasePage:
             expected_conditions.visibility_of_element_located(locator)
         )
         return element.text
+
+    def wait_for_visibility(self, locator, timeout=10):
+        WebDriverWait(self.driver, timeout).until(expected_conditions.visibility_of_element_located(locator))
+
+    def wait_for_clickability(self, locator, timeout=10):
+        WebDriverWait(self.driver, timeout).until(expected_conditions.element_to_be_clickable(locator))
+
+    def wait_for_url_to_be(self, url, timeout=10):
+        """Ожидает, пока текущий URL станет равным указанному."""
+        WebDriverWait(self.driver, timeout).until(expected_conditions.url_to_be(url))
+
+    def get_current_url(self):
+        """Возвращает текущий URL."""
+        return self.driver.current_url
+
+    def switch_to_last_window(self):
+        """Переключается на последнюю открытую вкладку."""
+        self.driver.switch_to.window(self.driver.window_handles[-1])

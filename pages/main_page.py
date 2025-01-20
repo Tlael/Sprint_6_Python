@@ -1,7 +1,7 @@
 import allure
 
 from pages.base_page import BasePage
-from pages.locators_main_page import *
+from resources.locators_main_page import *
 
 
 class MainPage(BasePage):

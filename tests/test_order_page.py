@@ -3,7 +3,7 @@ import pytest
 from selenium import webdriver
 
 from pages.order_page import OrderPage
-from pages.urls import SCOOTER_URL
+from resources.urls import SCOOTER_URL
 
 
 class TestOrderPage:
