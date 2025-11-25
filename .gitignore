@@ -1,0 +1,12 @@
+# Virtual environment
+venv/
+env/
+ENV/
+
+# Allure reports
+allure-report/
+allure_results/
+
+# Cache
+__pycache__/
+*.pyc
